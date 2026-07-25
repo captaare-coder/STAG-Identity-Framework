@@ -1,7 +1,16 @@
-from PySide6.QtWidgets import QMainWindow, QWidget, QHBoxLayout
+from PySide6.QtWidgets import (
+    QMainWindow,
+    QWidget,
+    QHBoxLayout,
+    QStackedWidget
+)
 
 from gui.sidebar import Sidebar
-from gui.dashboard import Dashboard
+
+from pages.dashboard_page import DashboardPage
+from pages.chat_page import ChatPage
+from pages.sandbox_page import SandboxPage
+from pages.settings_page import SettingsPage
 
 
 class MainWindow(QMainWindow):
@@ -14,12 +23,31 @@ class MainWindow(QMainWindow):
         container = QWidget()
         layout = QHBoxLayout()
 
-        self.sidebar = Sidebar()
-        self.dashboard = Dashboard()
+        self.pages = QStackedWidget()
+
+        self.page_map = {
+            "dashboard": DashboardPage(),
+            "chat": ChatPage(),
+            "sandbox": SandboxPage(),
+            "settings": SettingsPage(),
+        }
+
+        for page in self.page_map.values():
+            self.pages.addWidget(page)
+
+        self.sidebar = Sidebar(self.switch_page)
 
         layout.addWidget(self.sidebar)
-        layout.addWidget(self.dashboard)
+        layout.addWidget(self.pages)
 
         container.setLayout(layout)
 
         self.setCentralWidget(container)
+
+        self.switch_page("dashboard")
+
+
+    def switch_page(self, name):
+        self.pages.setCurrentWidget(
+            self.page_map[name]
+        )

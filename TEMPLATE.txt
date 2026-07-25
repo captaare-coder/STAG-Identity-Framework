@@ -1,0 +1,65 @@
+# STAG Identity Framework .gitignore
+
+# Private keys - NEVER upload
+
+*.key
+*.pem
+*.pfx
+*.p12
+*.private
+
+# Certificate files containing private information
+
+*-private.*
+*-secret.*
+
+# Password and configuration files
+
+*.password
+*.pwd
+config.ini
+secrets.ini
+.env
+
+# Backup files
+
+*.bak
+*.backup
+*.old
+*.tmp
+
+# Windows files
+
+Thumbs.db
+Desktop.ini
+
+# Editor files
+
+.vscode/
+.idea/
+
+# Build and release folders
+
+build/
+temp/
+logs/
+
+# Personal notes
+
+private/
+personal/
+
+# Operating system files
+
+$RECYCLE.BIN/
+System Volume Information/
+
+# Keep public certificates
+
+!certs/*.cer
+!certs/*.crt
+
+# Keep documentation
+
+!README.txt
+!README.md
